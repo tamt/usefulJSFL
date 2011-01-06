@@ -4,11 +4,14 @@ var output = "";
 var ip = "";
 for(var i=0; i<selections.length; i++){
 	var ele = selections[i];
-	if(ele.elementType == "instance"){
+	if(ele.elementType == "instance" || ele.elementType == "text"){
 		if(ele.name){
 			var className;
 			var importName;
-			if(ele.libraryItem.linkageClassName){
+			if(ele.elementType == "text"){
+				importName = "flash.text.TextField;"
+				className = "TextField";
+			}else if(ele.libraryItem.linkageClassName){
 				importName = ele.libraryItem.linkageClassName;
 				var e = ele.libraryItem.linkageClassName.lastIndexOf(".");
 				className = (e>0)?(ele.libraryItem.linkageClassName.substring(e+1)):(ele.libraryItem.linkageClassName);
@@ -30,6 +33,7 @@ for(var i=0; i<selections.length; i++){
 			}
 			output += "public var " + ele.name + ":" + className + ";\n";
 		}
+	}else{
 	}
 }
 
